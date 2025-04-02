@@ -1,0 +1,2 @@
+GET http://localhost:3310/api/guitar
+Content-Type: application/json
