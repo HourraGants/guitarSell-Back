@@ -1,16 +1,16 @@
 import type { RequestHandler } from "express";
 
 // Import access to data
-import itemRepository from "./itemRepository";
+import guitarRepository from "./guitarRepository";
 
 // The B of BREAD - Browse (Read All) operation
 const browse: RequestHandler = async (req, res, next) => {
   try {
     // Fetch all items
-    const items = await itemRepository.readAll();
+    const guitar = await guitarRepository.readAll();
 
     // Respond with the items in JSON format
-    res.json(items);
+    res.json(guitar);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -21,15 +21,15 @@ const browse: RequestHandler = async (req, res, next) => {
 const read: RequestHandler = async (req, res, next) => {
   try {
     // Fetch a specific item based on the provided ID
-    const itemId = Number(req.params.id);
-    const item = await itemRepository.read(itemId);
+    const guitarId = Number(req.params.id);
+    const guitar = await guitarRepository.read(guitarId);
 
     // If the item is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the item in JSON format
-    if (item == null) {
+    if (guitar == null) {
       res.sendStatus(404);
     } else {
-      res.json(item);
+      res.json(guitar);
     }
   } catch (err) {
     // Pass any errors to the error-handling middleware
@@ -41,13 +41,17 @@ const read: RequestHandler = async (req, res, next) => {
 const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
-    const newItem = {
-      title: req.body.title,
-      user_id: req.body.user_id,
+    const newGuitar = {
+      idproduct: req.body.idproduct,
+      name: req.body.name,
+      brand: req.body.brand,
+      price: req.body.price,
+      image: req.body.image,
+      type: req.body.type,
     };
 
     // Create the item
-    const insertId = await itemRepository.create(newItem);
+    const insertId = await guitarRepository.create(newGuitar);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted item
     res.status(201).json({ insertId });
