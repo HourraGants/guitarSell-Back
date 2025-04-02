@@ -46,19 +46,33 @@ class GuitarRepository {
     return rows as Guitar[];
   }
 
-  // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing item
+  async update(idproduct: number, guitar: Partial<Guitar>) {
+    // Execute the SQL UPDATE query to update an existing category in the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "update product set name = ?, brand = ?, price = ?, image = ?, type = ? where idproduct = ?",
+      [
+        guitar.name,
+        guitar.brand,
+        guitar.price,
+        guitar.image,
+        guitar.type,
+        idproduct,
+      ],
+    );
 
-  // async update(item: Item) {
-  //   ...
-  // }
+    // Return how many rows were affected
+    return result.affectedRows;
+  }
 
-  // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an item by its ID
-
-  // async delete(id: number) {
-  //   ...
-  // }
+  async delete(idproduct: number) {
+    // Execute the SQL DELETE query to delete an existing category from the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "delete from product where idproduct = ?",
+      [idproduct],
+    );
+    // Return how many rows were affected
+    return result.affectedRows;
+  }
 }
 
 export default new GuitarRepository();

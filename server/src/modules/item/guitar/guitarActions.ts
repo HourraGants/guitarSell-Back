@@ -37,6 +37,21 @@ const read: RequestHandler = async (req, res, next) => {
   }
 };
 
+const edit: RequestHandler = async (req, res, next) => {
+  try {
+    const guitarId = Number(req.params.id);
+
+    const affectedRows = await guitarRepository.update(guitarId, req.body);
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 // The A of BREAD - Add (Create) operation
 const add: RequestHandler = async (req, res, next) => {
   try {
@@ -61,4 +76,20 @@ const add: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add };
+const destroy: RequestHandler = async (req, res, next) => {
+  try {
+    // Delete a specific category based on the provided ID
+    const productId = Number(req.params.id);
+    // const {productId, userId} = req.query
+
+    await guitarRepository.delete(productId);
+
+    // Respond with HTTP 204 (No Content) anyway
+    res.sendStatus(204);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+export default { browse, read, edit, add, destroy };
