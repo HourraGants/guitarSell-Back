@@ -7,7 +7,7 @@ import guitarRepository from "./guitarRepository";
 const browse: RequestHandler = async (req, res, next) => {
   try {
     // Fetch all items
-    const guitar = await guitarRepository.readAll();
+    const guitar = await guitarRepository.readAllWithCategories();
 
     // Respond with the items in JSON format
     res.json(guitar);
@@ -22,7 +22,7 @@ const read: RequestHandler = async (req, res, next) => {
   try {
     // Fetch a specific item based on the provided ID
     const guitarId = Number(req.params.id);
-    const guitar = await guitarRepository.read(guitarId);
+    const guitar = await guitarRepository.readWithCategories(guitarId);
 
     // If the item is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the item in JSON format
@@ -40,8 +40,14 @@ const read: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const guitarId = Number(req.params.id);
+    const { name, brand, price, image, type, categories } = req.body;
+    const categoryIds = Array.isArray(categories) ? categories.map(Number) : [];
 
-    const affectedRows = await guitarRepository.update(guitarId, req.body);
+    const affectedRows = await guitarRepository.updateWithCategories(
+      guitarId,
+      { name, brand, price, image, type },
+      categoryIds,
+    );
     if (affectedRows === 0) {
       res.sendStatus(404);
     } else {
@@ -56,17 +62,14 @@ const edit: RequestHandler = async (req, res, next) => {
 const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
-    const newGuitar = {
-      idproduct: req.body.idproduct,
-      name: req.body.name,
-      brand: req.body.brand,
-      price: req.body.price,
-      image: req.body.image,
-      type: req.body.type,
-    };
+    const { name, brand, price, image, type, categories } = req.body;
+    const categoryIds = Array.isArray(categories) ? categories.map(Number) : [];
 
     // Create the item
-    const insertId = await guitarRepository.create(newGuitar);
+    const insertId = await guitarRepository.createWithCategories(
+      { name, brand, price, image, type },
+      categoryIds,
+    );
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted item
     res.status(201).json({ insertId });
