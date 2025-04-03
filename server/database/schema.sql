@@ -40,3 +40,15 @@ INSERT INTO product (name, brand, price, image, type) VALUES
 ('D-28', 'Martin', 2999.99, 'd28.jpg', 'Acoustique'),
 ('J-45 Standard', 'Gibson', 2799.99, 'j45_standard.jpg', 'Acoustique'),
 ('Pacifica 112V', 'Yamaha', 399.99, 'pacifica_112v.jpg', 'Électrique');
+
+INSERT INTO `guitar_sell`.`category` (`idcategory`, `name`) VALUES ('1', 'Guitar');
+INSERT INTO `guitar_sell`.`category` (`idcategory`, `name`) VALUES ('2', 'Basse');
+
+UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/images/electric-guitar.png' WHERE (`idproduct` = '1');
+UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/images/electric-guitar.png' WHERE (`idproduct` = '2');
+UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/images/electric-guitar.png' WHERE (`idproduct` = '3');
+UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/images/electric-guitar.png' WHERE (`idproduct` = '4');
+UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/images/electric-guitar.png' WHERE (`idproduct` = '5');
+UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/images/acoustic-guitar.png' WHERE (`idproduct` = '6');
+UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/images/acoustic-guitar.png' WHERE (`idproduct` = '7');
+UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/images/electric-guitar.png' WHERE (`idproduct` = '8');
