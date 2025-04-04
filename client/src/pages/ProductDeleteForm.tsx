@@ -18,7 +18,7 @@ function ProductDeleteForm({ id, children }: ProductDeleteFormProps) {
           method: "delete",
         }).then((response) => {
           if (response.status === 204) {
-            navigate("/guitar");
+            navigate("/shop");
           }
         });
       }}

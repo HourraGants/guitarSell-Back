@@ -83,11 +83,26 @@ class GuitarRepository {
       [idproduct],
     );
 
-    for (const categoryId of categoryIds) {
-      await databaseClient.query<Result>(
-        "INSERT INTO product_category (idproduct, idcategory) VALUES (?, ?)",
-        [idproduct, categoryId],
-      );
+    if (categoryIds && categoryIds.length > 0) {
+      for (const categoryId of categoryIds) {
+        // Vérifie que la catégorie existe (c'est une bonne pratique pour éviter les erreurs)
+        const [categoryCheck] = await databaseClient.query<Rows>(
+          "SELECT * FROM category WHERE idcategory = ?",
+          [categoryId],
+        );
+
+        if (categoryCheck.length > 0) {
+          // Si la catégorie existe, on l'associe au produit
+          await databaseClient.query<Result>(
+            "INSERT INTO product_category (idproduct, idcategory) VALUES (?, ?)",
+            [idproduct, categoryId],
+          );
+        } else {
+          console.log(`Catégorie avec l'ID ${categoryId} n'existe pas`);
+        }
+      }
+    } else {
+      console.log("Aucune catégorie sélectionnée pour ce produit");
     }
 
     // Return how many rows were affected
