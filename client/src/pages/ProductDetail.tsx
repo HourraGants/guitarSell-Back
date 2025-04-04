@@ -25,12 +25,12 @@ function ProgramDetail() {
 
   return (
     product && (
-      <>
+      <div className={Style.container}>
         <h1>{product.name}</h1>
         <Link to={`/guitar/edit/${product.idproduct}`}>Modifier</Link>
         <img src={product.image} alt={product.name} width="200" />
         <ProductDeleteForm id={product.idproduct}>Supprimer</ProductDeleteForm>
-      </>
+      </div>
     )
   );
 }

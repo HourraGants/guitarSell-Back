@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 
 ### Modifier un produit déjà existant
-PUT http://localhost:3310/api/guitar/9
+PUT http://localhost:3310/api/guitar/8
 Content-Type: application/json
 
 {

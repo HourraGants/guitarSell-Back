@@ -11,7 +11,7 @@ function ProductNew() {
     price: 0,
     image: "",
     type: "",
-    idcategory: 1,
+    idcategory: [],
   };
 
   return (

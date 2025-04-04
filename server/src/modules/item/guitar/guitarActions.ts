@@ -62,8 +62,9 @@ const edit: RequestHandler = async (req, res, next) => {
 const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
-    const { name, brand, price, image, type, categories } = req.body;
-    const categoryIds = Array.isArray(categories) ? categories.map(Number) : [];
+    const { name, brand, price, image, type, idcategory } = req.body;
+    console.log(req.body.idcategory, "poulet");
+    const categoryIds = Array.isArray(idcategory) ? idcategory.map(Number) : [];
 
     // Create the item
     const insertId = await guitarRepository.createWithCategories(

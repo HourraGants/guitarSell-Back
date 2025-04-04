@@ -10,7 +10,9 @@ function About() {
           <a href="/About" className={Style.navLink}>About</a>
         </nav>
       </header>
-      <p>Je suis sur About</p>
+      <section className={Style.container}>
+        <p>Je suis sur la page About</p>
+      </section>
     </>
   );
 }

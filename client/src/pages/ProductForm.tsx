@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Style from "./ProductForm.module.css";
 
 type ProductData = {
@@ -7,7 +7,7 @@ type ProductData = {
   price: number;
   image: string;
   type: string;
-  idcategory: number;
+  idcategory?: number;
 };
 
 interface ProductFormProps {
@@ -17,6 +17,13 @@ interface ProductFormProps {
 }
 
 function ProductForm({ children, defaultValue, onSubmit }: ProductFormProps) {
+  const [selectedCategory, setSelectedCategory] = useState<number>(defaultValue.idcategory ?? 0);
+
+  useEffect(() => {
+    if (defaultValue.idcategory !== undefined && defaultValue.idcategory !== null)
+      setSelectedCategory(defaultValue.idcategory);
+  }, [defaultValue.idcategory]);
+
   return (
     <div className={Style.container}>
       <form
@@ -30,7 +37,7 @@ function ProductForm({ children, defaultValue, onSubmit }: ProductFormProps) {
           const price = formData.get("price") as string;
           const image = formData.get("image") as string;
           const type = formData.get("type") as string;
-          const idcategory = formData.get("idcategory") as string;
+          const idcategory = selectedCategory;
 
           onSubmit({
             name,
@@ -38,7 +45,7 @@ function ProductForm({ children, defaultValue, onSubmit }: ProductFormProps) {
             price: Number.parseInt(price),
             image,
             type,
-            idcategory: Number.parseInt(idcategory),
+            idcategory,
           });
         }}
         className={Style.form}
@@ -54,7 +61,11 @@ function ProductForm({ children, defaultValue, onSubmit }: ProductFormProps) {
         <label htmlFor="type">Type :</label>
         <input type="text" name="type" defaultValue={defaultValue.type} id="type"/>
         <label htmlFor="category">Category :</label>
-        <input type="" name="idcategory" defaultValue={defaultValue.idcategory ?? ''} id="category"/>
+        <select name="idcategory" value={selectedCategory} onChange={(e) => setSelectedCategory(Number(e.target.value))} id="category">
+          <option value={0} disabled>Choisir une catégorie</option>
+            <option value="1">Guitare</option>
+            <option value="2">Basse</option>
+        </select>
         <button type="submit">{children}</button>
       </form>
     </div>

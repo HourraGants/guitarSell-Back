@@ -10,7 +10,9 @@ function HomePage() {
           <a href="/About" className={Style.navLink}>About</a>
         </nav>
       </header>
-      <p>Je suis sur la HomePage</p>
+      <section className={Style.container}>
+        <p>Je suis sur la HomePage</p>
+      </section>
     </>
   );
 }

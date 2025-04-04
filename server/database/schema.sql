@@ -52,3 +52,9 @@ UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/image
 UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/images/acoustic-guitar.png' WHERE (`idproduct` = '6');
 UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/images/acoustic-guitar.png' WHERE (`idproduct` = '7');
 UPDATE `guitar_sell`.`product` SET `image` = 'http://localhost:3310/assets/images/electric-guitar.png' WHERE (`idproduct` = '8');
+
+INSERT INTO product_category (idproduct, idcategory) 
+SELECT idproduct, 1 FROM product WHERE type = 'Électrique';
+
+INSERT INTO product_category (idproduct, idcategory) 
+SELECT idproduct, 1 FROM product WHERE type = 'Acoustique';
