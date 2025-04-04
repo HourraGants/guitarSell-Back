@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ProductDeleteForm from "./ProductDeleteForm";
+import Style from "./ProductDetail.module.css";
+
 
 type Product = {
   idproduct: number;
@@ -25,7 +27,7 @@ function ProgramDetail() {
     product && (
       <>
         <h1>{product.name}</h1>
-        <Link to={`/guitar/${product.idproduct}/edit`}>Modifier</Link>
+        <Link to={`/guitar/edit/${product.idproduct}`}>Modifier</Link>
         <img src={product.image} alt={product.name} width="200" />
         <ProductDeleteForm id={product.idproduct}>Supprimer</ProductDeleteForm>
       </>

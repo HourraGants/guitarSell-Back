@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Style from "./Shop.module.css";
 import { Link } from "react-router-dom";
+import ProgramDeleteForm from "./ProductDeleteForm";
 
 type Product = {
   idproduct: number;
@@ -46,26 +47,29 @@ const [loading, setLoading] = useState<boolean>(true);
           <a href="/About" className={Style.navLink}>About</a>
         </nav>
       </header>
-      <section>
-        <div>
+      <section className={Style.container}>
+        <div className={Style.content}>
           <h2>Liste des guitares disponibles sur le Shop</h2>
-          <ul>
+          <ul className={Style.card}>
             {products.map((product) => (
               <li key={product.idproduct}>
-                <h3><Link to={`/guitar/${product.idproduct}`}>{product.name}</Link></h3>
+                <h3><Link to={`/guitar/${product.idproduct}`} className={Style.link}>{product.name}</Link></h3>
                 <p>{product.brand}</p>
                 <p>{product.price}€</p>
                 <img src={product.image} alt={product.name} />
                 <Link to={`/guitar/edit/${product.idproduct}`}>
                   <button type="button">Modifier</button>
                 </Link>
-                <Link to={"/guitar/new"}><button type="button">Ajouter</button></Link>
               </li>
             ))}
           </ul>
+        </div>
+        <div className={Style.add}>
+        <Link to={"/guitar/new"}><button type="button" className="button">Ajouter</button></Link>
         </div>
       </section>
     </>
   );
 }
+
 export default Shop;
